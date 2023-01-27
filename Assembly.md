@@ -1,6 +1,7 @@
-Xiaoli
-Metagenome assembly
-Assembly is one of the key steps for the genome-centric metagenome analysis. It is the process that reconstructs genomes using your quality controlled sequences. The assemblers can be different depending on the sequence platforms used to generate the sequences. In this tutorial, we assume that your sequences are short reads generated using Illumina platforms. There are many assemblers available to the Illumina short reads, for example: IDBA-UD, MEGAHIT, and metaSPAdes. In this tutorial, we use MEGAHIT and metaSPAdes.
+# Metagenome assembly
+This step reconstructs genomes using the quality controlled sequences. 
+
+The assemblers can be different depending on the sequence platforms used to generate the sequences. In this tutorial, we assume that your sequences are short reads generated using Illumina platforms. There are many assemblers available to the Illumina short reads, for example: IDBA-UD, MEGAHIT, and metaSPAdes. In this tutorial, we use MEGAHIT and metaSPAdes.
 
 Create assembly directory
 #make an "assembly" directory in your project directory  
