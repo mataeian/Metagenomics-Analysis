@@ -7,6 +7,15 @@ Used bbmerge.sh to merge the paired end reads
 ```
 bbmerge.sh in=test.qc.1.fastq in2=test.qc.2.fastq out=test.qc.merged.fastq outu2=test.qc.unmerged.2.fastq outu=test.qc.unmerged.1.fastq
 ```
+After merging for each sample, combined all 4 of my samples:
+
+```
+cat test1.qc.merged.fastq test2.qc.merged.fastq test3.qc.merged.fastq test4.qc.merged.fastq > merged_Total.fastq
+
+cat test1.qc.unmerged.1.fastq test2.qc.unmerged.1.fastq test3.qc.unmerged.1.fastq test4.qc.unmerged.1.fastq > unmerged.1_Total.fastq
+
+cat test1.qc.unmerged.2.fastq test2.qc.unmerged.2.fastq test3.qc.unmerged.2.fastq test4.qc.unmerged.2.fastq > unmerged.2_Total.fastq
+```
 
 
 
