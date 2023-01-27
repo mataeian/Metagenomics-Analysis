@@ -1,7 +1,14 @@
 # Metagenome assembly
 This step reconstructs genomes using the quality controlled sequences. 
 
-The assemblers can be different depending on the sequence platforms used to generate the sequences. In this tutorial, we assume that your sequences are short reads generated using Illumina platforms. There are many assemblers available to the Illumina short reads, for example: IDBA-UD, MEGAHIT, and metaSPAdes. In this tutorial, we use MEGAHIT and metaSPAdes.
+You can merge your reads before assembly to improve the assembly and speed up the assembly process.
+Used bbmerge.sh to merge the paired end reads
+
+```
+bbmerge.sh in=test.qc.1.fastq in2=test.qc.2.fastq out=test.qc.merged.fastq outu2=test.qc.unmerged.2.fastq outu=test.qc.unmerged.1.fastq
+```
+
+
 
 Create assembly directory
 #make an "assembly" directory in your project directory  
@@ -70,11 +77,7 @@ For a lot of times, we are analyzing multiple samples together. To make sure all
 perl -pi -le 's/>/>yourShortSampleID_/g' contigs.500.fasta
 
 
-old Notes
-Step 3: Read merging (optional)
-Read-merging can improve the assembly and speed up the assembly process for some assemblers, such as SPAdes but not for megahit. We can use bbmerge.sh to merge the paired end reads:
-· Path on the server: /export/data/programs/bbmap
-· Example command: bbmerge.sh in=test.qc.1.fastq in2=test.qc.2.fastq out=test.qc.merged.fastq outu2=blue.qc.unmerged.2.fastq outu=test.qc.unmerged.1.fastq
+
 Step 4: Assembling reads
 A variety of assembly programs are publicly available, including IDBA, SOAPDenovo2, megahit, and metaspades. Those assemblers are also available on our server: 
 · Idba: 
