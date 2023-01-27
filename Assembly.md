@@ -12,31 +12,44 @@ After merging for each sample, combined all 4 of my samples:
 ```
 cat test1.qc.merged.fastq test2.qc.merged.fastq test3.qc.merged.fastq test4.qc.merged.fastq > merged_Total.fastq
 
-cat test1.qc.unmerged.1.fastq test2.qc.unmerged.1.fastq test3.qc.unmerged.1.fastq test4.qc.unmerged.1.fastq > unmerged.1_Total.fastq
+cat test1.qc.unmerged.1.fastq test2.qc.unmerged.1.fastq test3.qc.unmerged.1.fastq test4.qc.unmerged.1.fastq > unmerged_1_Total.fastq
 
-cat test1.qc.unmerged.2.fastq test2.qc.unmerged.2.fastq test3.qc.unmerged.2.fastq test4.qc.unmerged.2.fastq > unmerged.2_Total.fastq
+cat test1.qc.unmerged.2.fastq test2.qc.unmerged.2.fastq test3.qc.unmerged.2.fastq test4.qc.unmerged.2.fastq > unmerged_2_Total.fastq
+```
+
+First used metaspades for assembly. 
+metaSPAdes can provide longer contigs, but is much slower
+```
+metaspades.py -1 unmerged_1_Total.fastq -2 unmerged_2_Total.fastq -s merged_Total.fastq -o MetaSpades/
+```
+It crashed. tried to continue:
+```
+metaspades.py --continue
+```
+
+Keeps crashing. Did the assembly for each sample seperately and it is fine. So pobably thefile size is why it keeps crashing for the combined file.
+
+
+Used Megahit for assembly:
+Megahit is a fast assembler but metaspades gives larger contigs.
+
+```
+megahit -1 unmerged_1_Total.fastq -2 unmerged_2_Total.fastq -r merged_Total.fastq -t 12 -o Megahit_output --keep-tmp-files --presets meta-large
+```
+Checked auality of assembly using metaquast
+
+```
+metaquast.py final.contigs.fa -o MetaQuast/ --gene-finding
+```
+
+Also used stats.sh to check my assembly
+
+```
+stats.sh final.contigs.fa
 ```
 
 
 
-Create assembly directory
-#make an "assembly" directory in your project directory  
->mkdir assembly  
-#cd into assembly directory  
->cd assembly/  
-Assembly of qc reads with Megahit
-#print megahit version  
->megahit -v
-#print megahit usage message   
->megahit -h  
-#do the assembly using quality controlled reads  
->megahit -1 your_qc_R1_file -2 your_qc_R2_file -t 8 -m 0.5 -o megahit_assembly  >& megahit.log.txt 
-After finishing the assembly, we first check the "megahit.log.txt" file to make sure no errors has occurred during assembly and also to look at some of the simple stats such as min length of the contigs, max length of the contigs, N50
-
-#check log file to make sure there are no errors occurred during the assembly
->more megahit.log.txt
-#check the simple stats for the assembly
->tail megahit.log.txt
 After the successful assembly, your contig file is "megahit_assembly/final.contigs.fa".
 
 Assembly of qc reads with metaSPAdes
@@ -87,26 +100,4 @@ perl -pi -le 's/>/>yourShortSampleID_/g' contigs.500.fasta
 
 
 
-Step 4: Assembling reads
-A variety of assembly programs are publicly available, including IDBA, SOAPDenovo2, megahit, and metaspades. Those assemblers are also available on our server: 
-· Idba: 
-	o Path on the server: /export/data/programs/idba
-	o Document: http://github.com/loneknightpy/idba
-· Megahit: 
-	o Path on the server: /export/data/programs/megahit
-	o Document: http://github.com/voutcn/megahit
-· SPAdes: 
-	o Path on the server: /export/data/programs/SPAdes
-	o Document: http://cab.spbu.ru/software/spades
-		 
-· SOAPdenovo2: 
-	o Path on the server: /export/data/programs/SOAP/SOAPdenovo2-bin-LINUX-generic-r240
-	o Document: https://github.com/aquaskyline/SOAPdenovo2
-Example commands: 
-· Metaspades path on the server: /export/data/programs/SPAdes/
-· Get usage message: metaspades.py -h
-· Example command: metaspades.py -1 test.qc.unmerged.1.fastq -2 test.qc.unmerged.2.fastq -s test.qc.merged.fastq -o test_metaspades -t 8
-· megahit path on the server: /export/data/programs/megahit/
-· Print out megahit usage message:  megahit -h
-· Megahit -1 test.qc.1.fastq -2 test.qc.2.fastq -o megahit_out -t 8 --min-contig-len 500 
-After assembling the quality controlled reads into contigs, you can use metaQuast to evaluates and compares metagenome assembles. MetaQuast is available on the server at: /export/data/programs/quast. Please following the manual at: http://quast.sourceforge.net/metaquast.html on how to use metaQuast and to interpret the results. 
+
