@@ -1,0 +1,2 @@
+Read Mapping.
+Mapping is the process of aligning short reads back to references genomes, genes, or contigs. The mapping results can be used to compute contig coverages, quantify genes, infer taxonomic diversities, functional and pathway profiles, and improve binning results. There are many different mappers available to map your quality controlled reads back to the assemblies. In this tutorial, we will be using BBMap and Bowtie2. In this practice session, you will:
