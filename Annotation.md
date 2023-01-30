@@ -1,1 +1,5 @@
-The annotation includes gene predication (tRNA, rRNA, CRISPR, signal peptide, transmembrane helices, and protein coding genes), taxonomic assignment, and gene function annotation. There are public available annotation system available for metagenome annotation including MG-RAST (http://metagenomics.anl.gov/) and IMG/M (https://img.jgi.doe.gov/#IMGAccess).  We also have our own annotation pipeline developed, meta-annotator.
+# Metagenome Annotation
+
+The annotation includes gene predication (tRNA, rRNA, CRISPR, signal peptide, transmembrane helices, and protein coding genes), taxonomic assignment, and gene function annotation. I used the first version of our in house tool called Metaerg [https://www.frontiersin.org/articles/10.3389/fgene.2019.00999/full](metaerg).
+
+
